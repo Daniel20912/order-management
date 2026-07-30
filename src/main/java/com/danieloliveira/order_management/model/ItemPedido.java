@@ -21,7 +21,7 @@ public class ItemPedido {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(nullable = false,name = "fk_item_pedido")
+    @JoinColumn(nullable = false,name = "fk_pedido_id")
     private Pedido pedido;
 
     @Column(nullable = false)
@@ -34,5 +34,5 @@ public class ItemPedido {
     private BigDecimal valorUnitario;
 
     @Column(nullable = false)
-    private BigDecimal subTotal;
+    private BigDecimal subtotal;
 }

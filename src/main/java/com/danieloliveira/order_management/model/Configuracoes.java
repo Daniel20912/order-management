@@ -21,7 +21,7 @@ public class Configuracoes {
     private Long id;
 
     @Column(nullable = false)
-    private LocalTime horario;
+    private LocalTime horarioLimite;
 
     @Column(nullable = false)
     private Integer minutosAntecedenciaAlerta;
