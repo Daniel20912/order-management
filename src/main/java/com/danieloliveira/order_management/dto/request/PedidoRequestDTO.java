@@ -1,6 +1,6 @@
 package com.danieloliveira.order_management.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,12 +15,14 @@ import java.util.List;
 public class PedidoRequestDTO {
 
     @NotNull(message = "Os dados do cliente são obrigatórios")
+    @Valid
     private ClienteRequest cliente;
 
-    @NotBlank(message = "A data de retirada do pedido é obrigatória")
+    @NotNull(message = "A data de retirada do pedido é obrigatória")
     private LocalDate dataRetirada;
 
     private String observacoes;
 
+    @Valid
     private List<ItemPedidoRequestDTO> itens;
 }
