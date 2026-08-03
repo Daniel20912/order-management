@@ -16,7 +16,7 @@ public class PedidoRequestDTO {
 
     @NotNull(message = "Os dados do cliente são obrigatórios")
     @Valid
-    private ClienteRequest cliente;
+    private ClienteRequestDTO cliente;
 
     @NotNull(message = "A data de retirada do pedido é obrigatória")
     private LocalDate dataRetirada;

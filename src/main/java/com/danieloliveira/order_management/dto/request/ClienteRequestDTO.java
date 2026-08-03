@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ClienteRequest {
+public class ClienteRequestDTO {
 
     @NotBlank(message = "O nome do cliente é obrigatório")
     @Size(max = 100, message = "O nome deve ter no máximo 100 caracteres")

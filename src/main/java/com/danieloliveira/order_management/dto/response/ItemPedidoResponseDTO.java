@@ -14,4 +14,6 @@ public class ItemPedidoResponseDTO {
     private Integer quantidade;
 
     private BigDecimal valorUnitario;
+
+    private BigDecimal subtotal;
 }
