@@ -10,6 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -54,5 +58,21 @@ public class PedidoService {
 
         // converte o pedido para um dto de resposta e retorna
         return pedidoMapper.toResponseDTO(pedidoEntity);
+    }
+
+    public List<PedidoResponseDTO> findPedidosByData(LocalDate date) {
+        List<PedidoResponseDTO> pedidosResponseDTO = new ArrayList<>();
+
+        pedidoRepository.buscarPorDataComItens(date)
+                .forEach(pedido -> {
+                    pedidosResponseDTO.add(pedidoMapper.toResponseDTO(pedido));
+                });
+
+        return pedidosResponseDTO;
+    }
+
+    public PedidoResponseDTO findPedidoById(Long id) throws Exception {
+        Pedido pedido = pedidoRepository.findById(id).orElseThrow(Exception::new);
+        return pedidoMapper.toResponseDTO(pedido);
     }
 }
