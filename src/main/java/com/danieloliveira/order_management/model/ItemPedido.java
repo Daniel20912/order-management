@@ -21,7 +21,7 @@ public class ItemPedido {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(nullable = false,name = "fk_pedido_id")
+    @JoinColumn(nullable = false, name = "fk_pedido_id")
     private Pedido pedido;
 
     @Column(nullable = false)

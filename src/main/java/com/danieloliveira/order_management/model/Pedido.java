@@ -38,7 +38,7 @@ public class Pedido {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private StatusPedido status;
+    private StatusPedido status = StatusPedido.PENDENTE;
 
     @Column(nullable = false)
     private BigDecimal valorTotal;
@@ -51,4 +51,15 @@ public class Pedido {
 
     @Column(nullable = false)
     private LocalDateTime dataAtualizacao;
+
+
+    @PrePersist
+    public void prePersist() {
+        this.dataCriacao = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.dataAtualizacao = LocalDateTime.now();
+    }
 }
