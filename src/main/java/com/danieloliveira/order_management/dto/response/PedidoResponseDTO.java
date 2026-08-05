@@ -12,6 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 public class PedidoResponseDTO {
 
+    private Long pedidoId;
+
     private ClienteResponseDTO cliente;
 
     private LocalDate dataRetirada;

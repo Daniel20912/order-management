@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class ItemPedidoResponseDTO {
 
+    private Long itemId;
+
     private String nomeProduto;
 
     private Integer quantidade;
