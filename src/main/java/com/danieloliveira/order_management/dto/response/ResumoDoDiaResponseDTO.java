@@ -12,7 +12,7 @@ public class ResumoDoDiaResponseDTO {
 
     private LocalDate data;
 
-    private Integer quantidadePedidos;
+    private Long quantidadePedidos;
 
     private BigDecimal valorTotalEsperado;
 }

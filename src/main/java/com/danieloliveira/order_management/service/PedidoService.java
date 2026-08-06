@@ -3,11 +3,12 @@ package com.danieloliveira.order_management.service;
 import com.danieloliveira.order_management.dto.request.PedidoRequestDTO;
 import com.danieloliveira.order_management.dto.request.StatusRequestDTO;
 import com.danieloliveira.order_management.dto.response.PedidoResponseDTO;
+import com.danieloliveira.order_management.dto.response.ResumoDoDiaResponseDTO;
 import com.danieloliveira.order_management.mapper.PedidoMapper;
 import com.danieloliveira.order_management.model.ItemPedido;
 import com.danieloliveira.order_management.model.Pedido;
-import com.danieloliveira.order_management.model.StatusPedido;
 import com.danieloliveira.order_management.repository.PedidoRepository;
+import com.danieloliveira.order_management.repository.projection.ResumoDiarioProjection;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
@@ -89,9 +90,7 @@ public class PedidoService {
         List<PedidoResponseDTO> pedidosResponseDTO = new ArrayList<>();
 
         pedidoRepository.buscarPorDataComItens(date)
-                .forEach(pedido -> {
-                    pedidosResponseDTO.add(pedidoMapper.toResponseDTO(pedido));
-                });
+                .forEach(pedido -> pedidosResponseDTO.add(pedidoMapper.toResponseDTO(pedido)));
 
         return pedidosResponseDTO;
     }
@@ -121,13 +120,19 @@ public class PedidoService {
     }
 
     // busca todos os pedidos com determinado status
-    public List<PedidoResponseDTO> findAllByStatus( StatusRequestDTO statusRequestDTO) {
+    public List<PedidoResponseDTO> findAllByStatus(StatusRequestDTO statusRequestDTO) {
         List<Pedido> pedidosList = pedidoRepository.buscarPorStatusComItensOrdenadoPorData(statusRequestDTO.getStatusPedido());
         List<PedidoResponseDTO> pedidosResponseDTO = new ArrayList<>();
         pedidosList.forEach(pedido -> {
             pedidosResponseDTO.add(pedidoMapper.toResponseDTO(pedido));
         });
         return pedidosResponseDTO;
+    }
+
+    public ResumoDoDiaResponseDTO dailySummary(LocalDate data) {
+        ResumoDiarioProjection resumo = pedidoRepository.buscarResumoDoDia(data);
+
+        return new ResumoDoDiaResponseDTO(data, resumo.getQuantidade(), resumo.getValorTotal());
     }
 
 }

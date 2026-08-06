@@ -2,6 +2,7 @@ package com.danieloliveira.order_management.repository;
 
 import com.danieloliveira.order_management.model.Pedido;
 import com.danieloliveira.order_management.model.StatusPedido;
+import com.danieloliveira.order_management.repository.projection.ResumoDiarioProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,7 +16,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     List<Pedido> buscarPorDataComItens(@Param("data") LocalDate data);
 
     @Query("SELECT COUNT(p), COALESCE(SUM(p.valorTotal), 0) FROM Pedido p WHERE p.dataRetirada = :data AND p.status <> 'CANCELADO'")
-    Object[] buscarResumoDoDia(@Param("data") LocalDate data);
+    ResumoDiarioProjection buscarResumoDoDia(@Param("data") LocalDate data);
 
     List<Pedido> findByDataRetiradaAndStatus(LocalDate data, StatusPedido status);
 
