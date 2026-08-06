@@ -6,6 +6,7 @@ import com.danieloliveira.order_management.dto.response.PedidoResponseDTO;
 import com.danieloliveira.order_management.mapper.PedidoMapper;
 import com.danieloliveira.order_management.model.ItemPedido;
 import com.danieloliveira.order_management.model.Pedido;
+import com.danieloliveira.order_management.model.StatusPedido;
 import com.danieloliveira.order_management.repository.PedidoRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -117,6 +118,16 @@ public class PedidoService {
 
         updateEntity(pedido, pedidoRequestDTO);
         return pedidoMapper.toResponseDTO(pedido);
+    }
+
+    // busca todos os pedidos com determinado status
+    public List<PedidoResponseDTO> findAllByStatus( StatusRequestDTO statusRequestDTO) {
+        List<Pedido> pedidosList = pedidoRepository.buscarPorStatusComItensOrdenadoPorData(statusRequestDTO.getStatusPedido());
+        List<PedidoResponseDTO> pedidosResponseDTO = new ArrayList<>();
+        pedidosList.forEach(pedido -> {
+            pedidosResponseDTO.add(pedidoMapper.toResponseDTO(pedido));
+        });
+        return pedidosResponseDTO;
     }
 
 }

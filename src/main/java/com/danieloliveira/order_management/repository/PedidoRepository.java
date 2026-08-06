@@ -18,4 +18,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     Object[] buscarResumoDoDia(@Param("data") LocalDate data);
 
     List<Pedido> findByDataRetiradaAndStatus(LocalDate data, StatusPedido status);
+
+    @Query("SELECT p FROM Pedido p LEFT JOIN FETCH p.itens WHERE p.status = :status ORDER BY p.dataRetirada ASC")
+    List<Pedido> buscarPorStatusComItensOrdenadoPorData(@Param("status") StatusPedido status);
 }
