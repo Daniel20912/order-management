@@ -8,4 +8,6 @@ import org.mapstruct.Mapper;
 public interface ConfiguracaoMapper {
 
     Configuracao toEntity(ConfiguracaoRequestDTO configuracaoRequestDTO);
+
+    ConfiguracaoRequestDTO toResponseDTO(Configuracao configuracao);
 }
