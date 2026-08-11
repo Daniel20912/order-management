@@ -1,6 +1,7 @@
 package com.danieloliveira.order_management.service;
 
 import com.danieloliveira.order_management.dto.request.ConfiguracaoRequestDTO;
+import com.danieloliveira.order_management.dto.response.ConfiguracaoResponseDTO;
 import com.danieloliveira.order_management.mapper.ConfiguracaoMapper;
 import com.danieloliveira.order_management.model.Configuracao;
 import com.danieloliveira.order_management.repository.ConfiguracaoRepository;
@@ -16,7 +17,7 @@ public class ConfiguracaoService {
     private final ConfiguracaoRepository configuracaoRepository;
     private final ConfiguracaoMapper configuracaoMapper;
 
-    public ConfiguracaoRequestDTO findFirstByOrderByIdAsc() throws Exception {
+    public ConfiguracaoResponseDTO findFirstByOrderByIdAsc() throws Exception {
         Configuracao configuracao = getConfiguracao();
         return configuracaoMapper.toResponseDTO(configuracao);
     }
@@ -26,7 +27,7 @@ public class ConfiguracaoService {
     }
 
     @Transactional
-    public ConfiguracaoRequestDTO update(ConfiguracaoRequestDTO configuracaoRequestDTO) throws Exception {
+    public ConfiguracaoResponseDTO update(ConfiguracaoRequestDTO configuracaoRequestDTO) throws Exception {
         Configuracao configuracao = getConfiguracao();
 
         configuracao.setHorarioLimite(configuracaoRequestDTO.getHorarioLimite());
