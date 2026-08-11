@@ -28,12 +28,12 @@ public class PedidoController {
         return pedidoService.createPedido(pedidoRequestDTO);
     }
 
-    @GetMapping
+    @GetMapping("/date")
     public List<PedidoResponseDTO> findByDate(@RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return pedidoService.findPedidosByData(date);
     }
 
-    @GetMapping
+    @GetMapping("/status")
     public List<PedidoResponseDTO> findByStatus(@RequestParam("status") StatusPedido status) {
         return pedidoService.findAllByStatus(status);
     }
