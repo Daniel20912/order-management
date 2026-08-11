@@ -7,6 +7,7 @@ import com.danieloliveira.order_management.dto.response.ResumoDoDiaResponseDTO;
 import com.danieloliveira.order_management.mapper.PedidoMapper;
 import com.danieloliveira.order_management.model.ItemPedido;
 import com.danieloliveira.order_management.model.Pedido;
+import com.danieloliveira.order_management.model.StatusPedido;
 import com.danieloliveira.order_management.repository.PedidoRepository;
 import com.danieloliveira.order_management.repository.projection.ResumoDiarioProjection;
 import jakarta.transaction.Transactional;
@@ -120,12 +121,10 @@ public class PedidoService {
     }
 
     // busca todos os pedidos com determinado status
-    public List<PedidoResponseDTO> findAllByStatus(StatusRequestDTO statusRequestDTO) {
-        List<Pedido> pedidosList = pedidoRepository.buscarPorStatusComItensOrdenadoPorData(statusRequestDTO.getStatusPedido());
+    public List<PedidoResponseDTO> findAllByStatus(StatusPedido status) {
+        List<Pedido> pedidosList = pedidoRepository.buscarPorStatusComItensOrdenadoPorData(status);
         List<PedidoResponseDTO> pedidosResponseDTO = new ArrayList<>();
-        pedidosList.forEach(pedido -> {
-            pedidosResponseDTO.add(pedidoMapper.toResponseDTO(pedido));
-        });
+        pedidosList.forEach(pedido -> pedidosResponseDTO.add(pedidoMapper.toResponseDTO(pedido)));
         return pedidosResponseDTO;
     }
 
