@@ -11,8 +11,9 @@ import com.danieloliveira.order_management.model.ItemPedido;
 import com.danieloliveira.order_management.model.Pedido;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface PedidoMapper {
 
     @Mapping(target = "id", ignore = true)
@@ -24,6 +25,8 @@ public interface PedidoMapper {
 
     PedidoResponseDTO toResponseDTO(Pedido pedido);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "pedido", ignore = true)
     @Mapping(target = "subtotal", ignore = true)
     ItemPedido toEntity(ItemPedidoRequestDTO itemPedidoRequestDTO);
 

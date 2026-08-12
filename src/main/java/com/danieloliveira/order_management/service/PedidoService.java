@@ -50,7 +50,7 @@ public class PedidoService {
 
     private void updateEntity(Pedido pedido, PedidoRequestDTO pedidoRequestDTO) {
 
-        pedido.setDadosCliente(pedidoMapper.toEntity(pedidoRequestDTO.getCliente()));
+        pedido.setCliente(pedidoMapper.toEntity(pedidoRequestDTO.getCliente()));
         pedido.setDataRetirada(pedidoRequestDTO.getDataRetirada());
         pedido.setObservacoes(pedidoRequestDTO.getObservacoes());
         pedido.getItens().clear();

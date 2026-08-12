@@ -30,7 +30,7 @@ public class Pedido {
             @AttributeOverride(name = "nome", column = @Column(name = "cliente_nome", nullable = false)),
             @AttributeOverride(name = "telefone", column = @Column(name = "cliente_telefone"))
     })
-    private DadosCliente dadosCliente;
+    private DadosCliente cliente;
 
     @Column(nullable = false)
     private LocalDate dataRetirada;

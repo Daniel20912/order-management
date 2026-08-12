@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PedidoResponseDTO {
 
-    private Long pedidoId;
+    private Long id;
 
     private ClienteResponseDTO cliente;
 
