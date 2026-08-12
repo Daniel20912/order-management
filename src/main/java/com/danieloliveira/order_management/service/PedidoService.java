@@ -117,6 +117,9 @@ public class PedidoService {
         Pedido pedido = findEntityById(pedidoId);
 
         updateEntity(pedido, pedidoRequestDTO);
+
+        pedidoRepository.flush(); // força o Hibernate a executar os DELETE/INSERT pendentes agora, antes de retornar a resposta
+
         return pedidoMapper.toResponseDTO(pedido);
     }
 
