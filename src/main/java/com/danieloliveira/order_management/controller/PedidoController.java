@@ -56,7 +56,7 @@ public class PedidoController {
     }
 
     @GetMapping("/summary")
-    public ResumoDoDiaResponseDTO dailyResume(@RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public ResumoDoDiaResponseDTO dailyResume(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return pedidoService.dailySummary(date);
     }
 }
