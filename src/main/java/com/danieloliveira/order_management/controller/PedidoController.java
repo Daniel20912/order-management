@@ -29,7 +29,7 @@ public class PedidoController {
     }
 
     @GetMapping("/date")
-    public List<PedidoResponseDTO> findByDate(@RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public List<PedidoResponseDTO> findByDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return pedidoService.findPedidosByData(date);
     }
 
