@@ -6,6 +6,7 @@ import com.danieloliveira.order_management.dto.response.PedidoResponseDTO;
 import com.danieloliveira.order_management.dto.response.ResumoDoDiaResponseDTO;
 import com.danieloliveira.order_management.model.StatusPedido;
 import com.danieloliveira.order_management.service.PedidoService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,6 +39,7 @@ public class PedidoController {
         return pedidoService.findAllByStatus(status);
     }
 
+    @Transactional
     @GetMapping("/{id}")
     public PedidoResponseDTO findById(@PathVariable Long id) throws Exception {
         return pedidoService.findPedidoById(id);
