@@ -3,11 +3,9 @@ package com.danieloliveira.order_management.controller;
 import com.danieloliveira.order_management.dto.request.ConfiguracaoRequestDTO;
 import com.danieloliveira.order_management.dto.response.ConfiguracaoResponseDTO;
 import com.danieloliveira.order_management.service.ConfiguracaoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,7 +20,7 @@ public class ConfiguracaoController {
     }
 
     @PutMapping
-    public ConfiguracaoResponseDTO updateConfiguracao(ConfiguracaoRequestDTO configuracaoRequestDTO) throws Exception {
+    public ConfiguracaoResponseDTO updateConfiguracao(@Valid @RequestBody ConfiguracaoRequestDTO configuracaoRequestDTO) throws Exception {
         return configuracaoService.update(configuracaoRequestDTO);
     }
 }
