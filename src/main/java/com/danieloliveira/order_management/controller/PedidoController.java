@@ -41,17 +41,17 @@ public class PedidoController {
 
     @Transactional
     @GetMapping("/{id}")
-    public PedidoResponseDTO findById(@PathVariable Long id) throws Exception {
+    public PedidoResponseDTO findById(@PathVariable Long id) {
         return pedidoService.findPedidoById(id);
     }
 
     @PutMapping("/{id}")
-    public PedidoResponseDTO updateOrder(@PathVariable Long id, @Valid @RequestBody PedidoRequestDTO pedidoRequestDTO) throws Exception {
+    public PedidoResponseDTO updateOrder(@PathVariable Long id, @Valid @RequestBody PedidoRequestDTO pedidoRequestDTO) {
         return pedidoService.updatePedido(id, pedidoRequestDTO);
     }
 
     @PatchMapping("/{id}/status")
-    public PedidoResponseDTO updateStatus(@PathVariable Long id, @Valid @RequestBody StatusRequestDTO statusRequestDTO) throws Exception {
+    public PedidoResponseDTO updateStatus(@PathVariable Long id, @Valid @RequestBody StatusRequestDTO statusRequestDTO) {
         return pedidoService.updateStatus(id, statusRequestDTO);
     }
 

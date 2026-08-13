@@ -15,12 +15,12 @@ public class ConfiguracaoController {
     private final ConfiguracaoService configuracaoService;
 
     @GetMapping
-    public ConfiguracaoResponseDTO getConfiguracao() throws Exception {
+    public ConfiguracaoResponseDTO getConfiguracao() {
         return configuracaoService.findFirstByOrderByIdAsc();
     }
 
     @PutMapping
-    public ConfiguracaoResponseDTO updateConfiguracao(@Valid @RequestBody ConfiguracaoRequestDTO configuracaoRequestDTO) throws Exception {
+    public ConfiguracaoResponseDTO updateConfiguracao(@Valid @RequestBody ConfiguracaoRequestDTO configuracaoRequestDTO) {
         return configuracaoService.update(configuracaoRequestDTO);
     }
 }

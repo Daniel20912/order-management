@@ -4,6 +4,7 @@ import com.danieloliveira.order_management.dto.request.PedidoRequestDTO;
 import com.danieloliveira.order_management.dto.request.StatusRequestDTO;
 import com.danieloliveira.order_management.dto.response.PedidoResponseDTO;
 import com.danieloliveira.order_management.dto.response.ResumoDoDiaResponseDTO;
+import com.danieloliveira.order_management.exception.PedidoNaoEncontradoException;
 import com.danieloliveira.order_management.mapper.PedidoMapper;
 import com.danieloliveira.order_management.model.ItemPedido;
 import com.danieloliveira.order_management.model.Pedido;
@@ -12,7 +13,6 @@ import com.danieloliveira.order_management.repository.PedidoRepository;
 import com.danieloliveira.order_management.repository.projection.ResumoDiarioProjection;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -44,8 +44,8 @@ public class PedidoService {
         );
     }
 
-    private @NonNull Pedido findEntityById(Long pedidoId) throws Exception {
-        return pedidoRepository.findById(pedidoId).orElseThrow(Exception::new);
+    private Pedido findEntityById(Long pedidoId) {
+        return pedidoRepository.findById(pedidoId).orElseThrow(() -> new PedidoNaoEncontradoException("Pedido não encontrado"));
     }
 
     private void updateEntity(Pedido pedido, PedidoRequestDTO pedidoRequestDTO) {
@@ -96,14 +96,14 @@ public class PedidoService {
         return pedidosResponseDTO;
     }
 
-    public PedidoResponseDTO findPedidoById(Long id) throws Exception {
+    public PedidoResponseDTO findPedidoById(Long id) {
         Pedido pedido = findEntityById(id);
         return pedidoMapper.toResponseDTO(pedido);
     }
 
     // atualiza o status usando dirty checking
     @Transactional
-    public PedidoResponseDTO updateStatus(Long pedidoId, StatusRequestDTO statusRequestDTO) throws Exception {
+    public PedidoResponseDTO updateStatus(Long pedidoId, StatusRequestDTO statusRequestDTO) {
         Pedido pedido = findEntityById(pedidoId);
 
         pedido.setStatus(statusRequestDTO.getStatusPedido());
@@ -113,7 +113,7 @@ public class PedidoService {
 
     // atualiza o pedido usando dirty checking
     @Transactional
-    public PedidoResponseDTO updatePedido(Long pedidoId, PedidoRequestDTO pedidoRequestDTO) throws Exception {
+    public PedidoResponseDTO updatePedido(Long pedidoId, PedidoRequestDTO pedidoRequestDTO) {
         Pedido pedido = findEntityById(pedidoId);
 
         updateEntity(pedido, pedidoRequestDTO);
