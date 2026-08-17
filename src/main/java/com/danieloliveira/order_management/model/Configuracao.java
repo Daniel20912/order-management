@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
@@ -25,4 +26,6 @@ public class Configuracao {
 
     @Column(nullable = false)
     private Integer minutosAntecedenciaAlerta;
+
+    private LocalDate ultimaDataAlertada;
 }
