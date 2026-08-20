@@ -11,9 +11,9 @@ import com.danieloliveira.order_management.model.Pedido;
 import com.danieloliveira.order_management.model.StatusPedido;
 import com.danieloliveira.order_management.repository.PedidoRepository;
 import com.danieloliveira.order_management.repository.projection.ResumoDiarioProjection;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -96,6 +96,7 @@ public class PedidoService {
         return pedidosResponseDTO;
     }
 
+    @Transactional(readOnly = true)
     public PedidoResponseDTO findPedidoById(Long id) {
         Pedido pedido = findEntityById(id);
         return pedidoMapper.toResponseDTO(pedido);
