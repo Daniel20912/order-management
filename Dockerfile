@@ -13,6 +13,9 @@ FROM eclipse-temurin:21-jre-alpine
 LABEL authors="Daniel Oliveira"
 WORKDIR /app
 
+ENV TZ=America/Sao_Paulo
+ENV JAVA_TOOL_OPTIONS="-Duser.timezone=America/Sao_Paulo"
+
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring
 
