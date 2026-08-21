@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,19 +37,28 @@ class AlertServiceTest {
 
     @Test
     void deveAlertarQuandoDentroDaJanelaEExistemPendentes() {
-        Configuracao config = new Configuracao();
-        config.setHorarioLimite(LocalTime.now().plusMinutes(10));
-        config.setMinutosAntecedenciaAlerta(30);
-        config.setUltimaDataAlertada(null);
+        LocalDate dataFixa = LocalDate.of(2026, 8, 20);
+        LocalTime horaFixa = LocalTime.of(14, 0);
 
-        when(configuracaoRepository.findFirstByOrderByIdAsc()).thenReturn(Optional.of(config));
-        when(pedidoRepository.findByDataRetiradaAndStatus(any(), eq(StatusPedido.PENDENTE)))
-                .thenReturn(List.of(new Pedido()));
+        try (MockedStatic<LocalDate> mockedDate = mockStatic(LocalDate.class);
+             MockedStatic<LocalTime> mockedTime = mockStatic(LocalTime.class)) {
 
-        alertService.verificarPrazos();
+            mockedDate.when(LocalDate::now).thenReturn(dataFixa);
+            mockedTime.when(LocalTime::now).thenReturn(horaFixa);
 
-        // Valida se o atributo da entidade foi atualizado corretamente pelo serviço
-        assertNotNull(config.getUltimaDataAlertada());
-        assertEquals(LocalDate.now(), config.getUltimaDataAlertada());
+            Configuracao config = new Configuracao();
+            config.setHorarioLimite(horaFixa.plusMinutes(10));
+            config.setMinutosAntecedenciaAlerta(30);
+            config.setUltimaDataAlertada(null);
+
+            when(configuracaoRepository.findFirstByOrderByIdAsc()).thenReturn(Optional.of(config));
+            when(pedidoRepository.findByDataRetiradaAndStatus(any(), eq(StatusPedido.PENDENTE)))
+                    .thenReturn(List.of(new Pedido()));
+
+            alertService.verificarPrazos();
+
+            assertNotNull(config.getUltimaDataAlertada(), "A data alertada não deveria ser nula");
+            assertEquals(dataFixa, config.getUltimaDataAlertada());
+        }
     }
 }
